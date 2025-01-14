@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:29:33 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/14 17:39:40 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/14 19:12:41 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int dup_fd(t_data *data, int i)
 			return (EXIT_FAILURE);
 		}
 		close(data->tab_pipe[i - 1][0]);
-
 	}
 	if (data->cmds[i + 1] == NULL)
 	{
@@ -68,12 +67,12 @@ int mypipe(t_data *data)
 		if (data->cmds[i + 1] != NULL)
 		{
 			// ft_printf("voila %d %p\n", i, data->tab_pipe[i]);
-			
 			if (pipe(data->tab_pipe[i]) == -1)
 			{
 				perror("Pipe creation failed");
 				return (EXIT_FAILURE);
 			}
+			data->current_pipe++;
 		}
 
 		// verrification aue les dup n'echouent pas

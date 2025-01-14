@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:17:03 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/14 17:45:13 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/14 19:11:55 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_data
 	int *tab_pid;
 	int argc;
 	pid_t **tab_pipe;
+	int *tab_fd_pipe;
+	int current_pipe;
 }	t_data;
 
 // /*    Game    */

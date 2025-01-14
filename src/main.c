@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:17:08 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/14 18:32:58 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/14 19:12:12 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_data * init_data(int argc, char *argv[], char *envp[])
 	if (data == NULL)
 		return (NULL);
 	data->argc = argc;
+	data->current_pipe = 0;
 	if (get_all_path(data, envp))
 		return (free(data), NULL);
 	data->envp = envp;
@@ -134,6 +135,7 @@ t_data * init_data(int argc, char *argv[], char *envp[])
 	return(data);
 }
 
+// valgrind --leak-check=full --trace-children=yes --track-fds=yes
 int main(int argc, char *argv[], char *envp[])
 {
 	t_data *data;
@@ -158,6 +160,11 @@ int main(int argc, char *argv[], char *envp[])
 
 
 	// free_tabn((void *)(data->paths), (size_tab((void *)(data->paths)) - 1));
+
+	// close(data->fd_infile);
+	// close(data->fd_outfile);
+	// close(data->tab_pipe[0][0]);
+	// close(data->tab_pipe[0][1]);
 	free_data(data);
 	return (EXIT_SUCCESS);
 }

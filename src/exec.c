@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:20:28 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/14 17:14:51 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/14 19:18:50 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,19 @@ int	exec(t_data *data, char *cmd)
 		free(tmp_path_slash);
 		if(!access(tmp_path_cmd, X_OK))
 		{
+			int j;
+			j = 0;
+			while (j < data->current_pipe)
+			{
+				// fprintf(stderr, "test %d\n", j);
+				close(data->tab_pipe[j][0]);
+				close(data->tab_pipe[j][1]);
+				j++;
+			}
+			
+			close(data->fd_outfile);
+			close(data->fd_infile);
+			
 			execve(tmp_path_cmd, params, data->envp);
 			perror(tmp_path_cmd);
 		}
