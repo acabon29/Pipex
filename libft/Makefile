@@ -54,7 +54,10 @@ FILES		= \
 	ft_putexapt_pf \
 	ft_isint \
 	ft_printf \
+	ft_fprintf \
 	get_next_line \
+	ft_strcmp \
+	ft_putnbr_base_fd \
 
 SRC_DIR = src
 OBJ_DIR = obj

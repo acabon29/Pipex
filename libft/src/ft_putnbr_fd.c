@@ -6,32 +6,35 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:24:18 by acabon            #+#    #+#             */
-/*   Updated: 2024/12/10 17:00:03 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 13:27:50 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr_fd(int n, int fd)
 {
 	char	c;
+	int		len;
 
+	len = 0;
 	if (n < 0)
 	{
 		if (n == -2147483648)
 		{
-			ft_putnbr_fd(n / 10, fd);
+			len += ft_putnbr_fd(n / 10, fd);
 			c = -(n % 10) + '0';
-			write(fd, &c, 1);
-			return ;
+			len += write(fd, &c, 1);
+			return (len);
 		}
-		write(fd, "-", 1);
+		len += write(fd, "-", 1);
 		n = -n;
 	}
 	if (n > 9)
-		ft_putnbr_fd(n / 10, fd);
+		len += ft_putnbr_fd(n / 10, fd);
 	c = n % 10 + '0';
-	write(fd, &c, 1);
+	len += write(fd, &c, 1);
+	return (len);
 }
 
 // int main()

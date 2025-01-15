@@ -1,38 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putexapt_pf.c                                   :+:      :+:    :+:   */
+/*   ft_putnbr_base_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 16:32:21 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 13:25:03 by acabon           ###   ########.fr       */
+/*   Created: 2024/11/02 15:35:27 by acabon            #+#    #+#             */
+/*   Updated: 2025/01/15 13:31:23 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_putexapt_pf(long long mem, char *base, int fd)
+int	ft_putnbr_base_fd(unsigned int nb, char *base, int fd)
 {
 	int	len;
 
 	len = 0;
-	if (mem == 0)
-	{
-		len += ft_putstr_fd("(nil)", fd);
-		return (len);
-	}
-	if (mem == LONG_MIN)
-		len += ft_putstr_fd("0x8000000000000000", fd);
-	else if (mem == (long long)ULONG_MAX)
-		len += ft_putstr_fd("0xffffffffffffffff", fd);
-	else
-	{
-		if (mem >= 16)
-			len += ft_putexapt_pf(mem / 16, base, fd);
-		else
-			len += ft_putstr_fd("0x", fd);
-		len += ft_putchar_fd(base[mem % 16], fd);
-	}
+	if (nb >= ft_strlen(base))
+		len += ft_putnbr_base_fd(nb / ft_strlen(base), base, fd);
+	len += ft_putchar_fd(base[nb % ft_strlen(base)], fd);
 	return (len);
 }

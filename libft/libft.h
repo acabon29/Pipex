@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:19:21 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 11:20:05 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 13:30:49 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char *s, int fd);
+int		ft_putchar_fd(char c, int fd);
+int		ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
+int		ft_putnbr_fd(int n, int fd);
 
 // bonus
 
@@ -112,14 +112,16 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 // mes fonctions
 
 int		ft_putnbr_base(unsigned int nb, char *base);
-int		ft_putexapt_pf(long long mem, char *base);
+int		ft_putexapt_pf(long long mem, char *base, int fd);
 int		ft_putnbr(int nb);
 int		ft_putstr(char *str);
 int		ft_putchar(char c);
 int		ft_isint(char *str);
 int		ft_printf(const char *format, ...);
+int		ft_fprintf(int fd, const char *format, ...);
 char	*get_next_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_putnbr_base_fd(unsigned int nb, char *base, int fd);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE	42

@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:39:11 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/14 19:46:58 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:10:34 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 void	del_content(void *content)
 {
 	free(content);
+}
+
+char	*find_path(char *envp[])
+{
+	int	i;
+
+	i = 0;
+	while (envp[i] != NULL
+		&& ft_strncmp(envp[i], "PATH=", 5) != 0)
+		i++;
+	if (envp[i] == NULL)
+		return (NULL);
+	return (ft_strdup(envp[i] + 5));
 }
 
 void free_data(t_data *data)
@@ -29,10 +42,10 @@ void free_data(t_data *data)
 	// 	i++;
 	// }
 	// free(data->paths);
-	free_tabn((void **)data->cmds, (int)(data->argc - 3));
+	free_tabn((void **)data->cmds, (int)(data->argc - (3 + data->here_doc)));
 	free(data->tab_pid);
 	// free_tabn((void **)data->tab_pipe, (int)(data->argc - 5));
-	free_tabn((void **)data->tab_pipe, (int)(data->argc - 5));
+	free_tabn((void **)data->tab_pipe, (int)(data->argc - (5 + data->here_doc)));
 	free(data);
 }
 

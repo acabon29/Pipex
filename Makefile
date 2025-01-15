@@ -28,10 +28,12 @@ OBJ_DIR = obj
 
 ###############    Files    ###############
 FILES		= \
-	main\
-	utility\
-	exec\
-	pipe\
+	main \
+	utility \
+	exec \
+	fork_and_pipe \
+	open_files \
+	init_data \
 
 SRC	= $(addprefix $(SRC_DIR)/, $(addsuffix .c, $(FILES)))
 OBJ	:= $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))

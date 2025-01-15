@@ -6,22 +6,15 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:12:28 by acabon            #+#    #+#             */
-/*   Updated: 2024/12/10 17:00:03 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 13:22:40 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
-
-	i = 0;
-	while (s[i] != 0)
-	{
-		ft_putchar_fd(s[i], fd);
-		i++;
-	}
+	return (write(fd, s, ft_strlen(s)));
 }
 
 // int main()
