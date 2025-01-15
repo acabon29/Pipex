@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 14:01:40 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 13:32:13 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:21:36 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,18 @@ static int	put_arg(va_list args, char type, int fd)
 	else if (type == 'i')
 		len = ft_putnbr_fd(va_arg(args, int), fd);
 	else if (type == 'u')
-	// gfdsgfdsgdsf
-	
 		len = ft_putnbr_base_fd(va_arg(args, unsigned int), "0123456789", fd);
 	else if (type == 'x')
-		len = ft_putnbr_base_fd(va_arg(args, unsigned int), "0123456789abcdef", fd);
+		len = ft_putnbr_base_fd(va_arg(args, unsigned int),
+				"0123456789abcdef", fd);
 	else if (type == 'X')
-		len = ft_putnbr_base_fd(va_arg(args, unsigned int), "0123456789ABCDEF", fd);
-
+		len = ft_putnbr_base_fd(va_arg(args, unsigned int),
+				"0123456789ABCDEF", fd);
 	else if (type == 's')
 		len = ft_putstr_fd(va_arg(args, char *), fd);
 	else if (type == 'p')
-		len = ft_putexapt_pf((long)va_arg(args, char *), "0123456789abcdef", fd);
+		len = ft_putexapt_pf((long)va_arg(args, char *),
+				"0123456789abcdef", fd);
 	return (len);
 }
 

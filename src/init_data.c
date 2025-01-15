@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:05:02 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 14:19:40 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:29:58 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	get_all_path(t_data *data, char *envp[])
 	path = find_path(envp);
 	if (!path)
 		return (EXIT_FAILURE);
-	
 	data->paths = ft_split((const char *)path, ':');
 	free(path);
 	if (!(data->paths))
@@ -27,11 +26,11 @@ static int	get_all_path(t_data *data, char *envp[])
 	return (EXIT_SUCCESS);
 }
 
-static char **gen_tab_cmd(int argc, char *argv[], char here_doc)
+static char	**gen_tab_cmd(int argc, char *argv[], char here_doc)
 {
-	char **cmds;
-	size_t i;
-	size_t decal;
+	char	**cmds;
+	size_t	i;
+	size_t	decal;
 
 	decal = 2 + here_doc;
 	cmds = malloc((argc - decal) * sizeof(char *));
@@ -40,7 +39,6 @@ static char **gen_tab_cmd(int argc, char *argv[], char here_doc)
 	i = decal;
 	while (i < (size_t)(argc - 1))
 	{
-		// cmds[i - 2] = malloc(sizeof(char) * (ft_strlen(argv[i]) + 1));
 		cmds[i - decal] = ft_strdup(argv[i]);
 		if (!cmds[i - decal])
 			return (free_tabn((void **)cmds, (int)(i - decal)), NULL);
@@ -50,7 +48,7 @@ static char **gen_tab_cmd(int argc, char *argv[], char here_doc)
 	return (cmds);
 }
 
-static int init_tab_pipe(t_data *data, int argc)
+static int	init_tab_pipe(t_data *data, int argc)
 {
 	int	i;
 
@@ -58,9 +56,9 @@ static int init_tab_pipe(t_data *data, int argc)
 	if (!data->tab_pipe)
 	{
 		free_tab((void **)data->paths);
-		free_tabn((void **)data->cmds, (int)(data->argc - (3 + data->here_doc)));
-		free(data->tab_pid);
-		return (EXIT_FAILURE);
+		free_tabn((void **)data->cmds,
+			(int)(data->argc - (3 + data->here_doc)));
+		return (free(data->tab_pid), EXIT_FAILURE);
 	}
 	i = 0;
 	while (i < (argc - (4 + data->here_doc)))
@@ -69,16 +67,17 @@ static int init_tab_pipe(t_data *data, int argc)
 		if (!data->tab_pipe)
 		{
 			free_tab((void **)data->paths);
-			free_tabn((void **)data->cmds, (int)(data->argc - (3 + data->here_doc)));
+			free_tabn((void **)data->cmds,
+				(int)(data->argc - (3 + data->here_doc)));
 			free(data->tab_pid);
-			free_tabn((void **)data->tab_pipe, i);
-			return (EXIT_FAILURE);
+			return (free_tabn((void **)data->tab_pipe, i), EXIT_FAILURE);
 		}
 		i++;
 	}
 	return (EXIT_SUCCESS);
 }
-static int init_base_data(t_data *data,int argc, char *argv[], char *envp[])
+
+static int	init_base_data(t_data *data, int argc, char *argv[], char *envp[])
 {
 	data->argc = argc;
 	data->current_pipe = 0;
@@ -106,9 +105,9 @@ static int init_base_data(t_data *data,int argc, char *argv[], char *envp[])
 	return (EXIT_SUCCESS);
 }
 
-t_data *init_data(int argc, char *argv[], char *envp[])
+t_data	*init_data(int argc, char *argv[], char *envp[])
 {
-	t_data *data;
+	t_data	*data;
 
 	data = malloc(sizeof(t_data));
 	if (data == NULL)
@@ -119,11 +118,12 @@ t_data *init_data(int argc, char *argv[], char *envp[])
 	if (!data->tab_pid)
 	{
 		free_tab((void **)data->paths);
-		free_tabn((void **)data->cmds, (int)(data->argc - (3 + data->here_doc)));
+		free_tabn((void **)data->cmds,
+			(int)(data->argc - (3 + data->here_doc)));
 		free(data);
 		return (NULL);
 	}
 	if (init_tab_pipe(data, argc))
 		return (free(data), NULL);
-	return(data);
+	return (data);
 }

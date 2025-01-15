@@ -6,13 +6,13 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:29:33 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 13:58:50 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:26:34 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-static int dup_fd(t_data *data, int i)
+static int	dup_fd(t_data *data, int i)
 {
 	if (i == 0)
 	{
@@ -22,19 +22,19 @@ static int dup_fd(t_data *data, int i)
 	}
 	else
 	{
-		if(dup2(data->tab_pipe[i - 1][0], STDIN_FILENO) == -1)
+		if (dup2(data->tab_pipe[i - 1][0], STDIN_FILENO) == -1)
 			return (perror("Dup2 failed"), EXIT_FAILURE);
 		close(data->tab_pipe[i - 1][0]);
 	}
 	if (data->cmds[i + 1] == NULL)
 	{
-		if(dup2(data->fd_outfile, STDOUT_FILENO) == -1)
+		if (dup2(data->fd_outfile, STDOUT_FILENO) == -1)
 			return (perror("Dup2 failed"), EXIT_FAILURE);
 		close(data->fd_outfile);
 	}
 	else
 	{
-		if(dup2(data->tab_pipe[i][1], STDOUT_FILENO) == -1)
+		if (dup2(data->tab_pipe[i][1], STDOUT_FILENO) == -1)
 			return (perror("Dup2 failed"), EXIT_FAILURE);
 		close(data->tab_pipe[i][1]);
 	}
@@ -44,7 +44,7 @@ static int dup_fd(t_data *data, int i)
 static void	wait_process(t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
 	while (data->cmds[i] != NULL)
 	{
@@ -53,7 +53,7 @@ static void	wait_process(t_data *data)
 	}
 }
 
-int create_pipe(t_data *data, int i)
+int	create_pipe(t_data *data, int i)
 {
 	if (data->cmds[i + 1] != NULL)
 	{
@@ -67,7 +67,7 @@ int create_pipe(t_data *data, int i)
 	return (EXIT_SUCCESS);
 }
 
-int fork_and_pipe(t_data *data)
+int	fork_and_pipe(t_data *data)
 {
 	int	i;
 
@@ -79,11 +79,13 @@ int fork_and_pipe(t_data *data)
 		if (dup_fd(data, i))
 			return (EXIT_FAILURE);
 		data->tab_pid[i] = fork();
-		if (data->tab_pid[i] == -1) {
+		if (data->tab_pid[i] == -1)
+		{
 			perror("Fork failed");
 			return (EXIT_FAILURE);
 		}
-		if (data->tab_pid[i] == 0) {
+		if (data->tab_pid[i] == 0)
+		{
 			exec(data, data->cmds[i]);
 			return (EXIT_FAILURE);
 		}

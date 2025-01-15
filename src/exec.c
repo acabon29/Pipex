@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:20:28 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 13:55:32 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:25:46 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*get_path_cmd(t_data *data, int i, char	**params)
 {
 	char	*tmp_path_slash;
 	char	*path_cmd;
-	
+
 	tmp_path_slash = ft_strjoin(data->paths[i], "/");
 	if (!tmp_path_slash)
 	{
@@ -36,7 +36,7 @@ static char	*get_path_cmd(t_data *data, int i, char	**params)
 static void	close_fd(t_data *data)
 {
 	int	j;
-	
+
 	j = 0;
 	while (j < data->current_pipe)
 	{
@@ -58,12 +58,12 @@ int	exec(t_data *data, char *cmd)
 	while (data->paths[i] != NULL)
 	{
 		params = ft_split(cmd, ' ');
-		if(!params)
+		if (!params)
 			return (EXIT_FAILURE);
 		path_cmd = get_path_cmd(data, i, params);
 		if (!path_cmd)
 			return (EXIT_FAILURE);
-		if(!access(path_cmd, X_OK))
+		if (!access(path_cmd, X_OK))
 		{
 			close_fd(data);
 			execve(path_cmd, params, data->envp);

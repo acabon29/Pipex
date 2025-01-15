@@ -6,18 +6,19 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:59:50 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 14:04:35 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:27:21 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-static int open_here_doc(t_data *data)
+static int	open_here_doc(t_data *data)
 {
-	char *buffer;
-	char *limiter;
-	
-	data->fd_infile = open("./src/here_doc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	char	*buffer;
+	char	*limiter;
+
+	data->fd_infile = open("./src/here_doc",
+			O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->fd_infile == -1)
 		return (perror("Error here_doc"), EXIT_FAILURE);
 	limiter = ft_strjoin(data->here_doc_limiter, "\n");
@@ -37,11 +38,10 @@ static int open_here_doc(t_data *data)
 	if (buffer != NULL)
 		free(buffer);
 	free(limiter);
-	close(data->fd_infile);
-	return (EXIT_SUCCESS);
+	return (close(data->fd_infile), EXIT_SUCCESS);
 }
 
-int open_files(t_data *data)
+int	open_files(t_data *data)
 {
 	if (data->here_doc == 1)
 		open_here_doc(data);
