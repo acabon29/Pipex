@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:39:11 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 14:24:52 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 15:07:48 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	*find_path(char *envp[])
 
 void	free_data(t_data *data)
 {
+	if (data->valid_infile)
+		data->cmds--;
 	free_tab((void **)data->paths);
 	free_tabn((void **)data->cmds,
 		(int)(data->argc - (3 + data->here_doc)));

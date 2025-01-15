@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:05:02 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 14:29:58 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:53:28 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static int	init_base_data(t_data *data, int argc, char *argv[], char *envp[])
 	data->current_pipe = 0;
 	data->envp = envp;
 	data->outfile = argv[argc - 1];
+	data->valid_infile = 0;
 	if (ft_strcmp(argv[1], "here_doc") == 0)
 	{
 		data->here_doc_limiter = argv[2];

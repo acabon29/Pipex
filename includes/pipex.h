@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:17:03 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 14:31:21 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:53:02 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_data
 	char	**paths;
 	char	**envp;
 	char	*infile;
+	char	valid_infile;
 	char	*outfile;
 	int		fd_infile;
 	int		fd_outfile;

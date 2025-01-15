@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:59:50 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 14:27:21 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 15:18:22 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,16 @@ int	open_files(t_data *data)
 	data->fd_infile = open(data->infile, O_RDONLY);
 	if (data->fd_infile == -1)
 	{
-		perror("Error infile");
+		perror(data->infile);
 		data->fd_infile = open("/dev/null", O_RDONLY);
+		data->cmds++;
+		data->valid_infile = 1;
 	}
 	data->fd_outfile = open(data->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->fd_outfile == -1)
 	{
 		close(data->fd_infile);
-		perror("Error outfile");
+		perror(data->outfile);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

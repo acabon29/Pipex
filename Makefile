@@ -72,6 +72,7 @@ msg_compil:
 clean:
 	@rm -fr $(OBJ_DIR)
 	@$(MAKE) -sC $(LIBFT_DIR) clean
+	@rm -f ./src/here_doc
 	@printf "$(YELLOW)Cleaning objects in $(NAME) successfull !\n$(RESET)"
 
 fclean: clean

@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:20:28 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 14:25:46 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 15:10:49 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	close_fd(t_data *data)
 	int	j;
 
 	j = 0;
-	while (j < data->current_pipe)
+	while (j < (data->current_pipe))
 	{
 		close(data->tab_pipe[j][0]);
 		close(data->tab_pipe[j][1]);
@@ -73,6 +73,6 @@ int	exec(t_data *data, char *cmd)
 		free(path_cmd);
 		i++;
 	}
-	ft_fprintf(2, "Erreur: commande not find\n");
+	ft_fprintf(2, "Erreur: commande not found\n");
 	return (EXIT_FAILURE);
 }
