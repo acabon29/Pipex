@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:17:08 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/14 19:12:12 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 11:38:26 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,18 @@ char **gen_tab_cmd(int argc, char *argv[])
 int open_files(t_data *data)
 {
 	data->fd_infile = open(data->infile, O_RDONLY);
-	if (data->fd_infile == -1) {
-			perror("Error opening file1");
-			return (EXIT_FAILURE);
+	if (data->fd_infile == -1)
+	{
+		perror("Error infile");
+		data->fd_infile = open("/dev/null", O_RDONLY);
+		// return (EXIT_FAILURE);
 	}
 	data->fd_outfile = open(data->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (data->fd_outfile == -1) {
-			perror("Error opening file2");
-			return (EXIT_FAILURE);
+	if (data->fd_outfile == -1)
+	{
+		close(data->fd_infile);
+		perror("Error outfile");
+		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -87,6 +91,11 @@ t_data * init_data(int argc, char *argv[], char *envp[])
 		return (NULL);
 	data->argc = argc;
 	data->current_pipe = 0;
+	if (strcmp(argv[1], "here_doc") == 0)
+		data->here_doc = 1;
+	else
+		data->here_doc = 0;
+	
 	if (get_all_path(data, envp))
 		return (free(data), NULL);
 	data->envp = envp;
@@ -150,13 +159,15 @@ int main(int argc, char *argv[], char *envp[])
 	if (!data)
 		return (EXIT_FAILURE);
 
+// open_files(data);
 	if(open_files(data))
 	{
 		free_data(data);
 		return (EXIT_FAILURE);
 	}
 
-	mypipe(data);
+	fork_and_pipe(data);
+
 
 
 	// free_tabn((void *)(data->paths), (size_tab((void *)(data->paths)) - 1));
@@ -168,3 +179,7 @@ int main(int argc, char *argv[], char *envp[])
 	free_data(data);
 	return (EXIT_SUCCESS);
 }
+
+
+
+// pb d'ouvertudes des fichiers infile

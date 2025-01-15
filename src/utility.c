@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:39:11 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/14 17:47:00 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/14 19:46:58 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void free_data(t_data *data)
 	// free(data->paths);
 	free_tabn((void **)data->cmds, (int)(data->argc - 3));
 	free(data->tab_pid);
+	// free_tabn((void **)data->tab_pipe, (int)(data->argc - 5));
 	free_tabn((void **)data->tab_pipe, (int)(data->argc - 5));
 	free(data);
 }

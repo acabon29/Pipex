@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:19:21 by acabon            #+#    #+#             */
-/*   Updated: 2024/11/26 11:07:07 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 11:20:05 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int		ft_putchar(char c);
 int		ft_isint(char *str);
 int		ft_printf(const char *format, ...);
 char	*get_next_line(int fd);
+int		ft_strcmp(const char *s1, const char *s2);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE	42

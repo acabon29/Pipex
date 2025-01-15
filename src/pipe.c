@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:29:33 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/14 19:12:41 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/15 11:14:54 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int dup_fd(t_data *data, int i)
 {
 	if (i == 0)
 	{
+		// dup2(data->fd_infile, STDIN_FILENO);
 		if (dup2(data->fd_infile, STDIN_FILENO) == -1)
 		{
 			perror("Dup2 failed");
@@ -25,6 +26,7 @@ int dup_fd(t_data *data, int i)
 	}
 	else
 	{
+		// dup2(data->tab_pipe[i - 1][0], STDIN_FILENO);
 		if(dup2(data->tab_pipe[i - 1][0], STDIN_FILENO) == -1)
 		{
 			perror("Dup2 failed");
@@ -34,6 +36,7 @@ int dup_fd(t_data *data, int i)
 	}
 	if (data->cmds[i + 1] == NULL)
 	{
+		// dup2(data->fd_outfile, STDOUT_FILENO);
 		if(dup2(data->fd_outfile, STDOUT_FILENO) == -1) // out_file = fd out_file
 		{
 			perror("Dup2 failed");
@@ -43,6 +46,7 @@ int dup_fd(t_data *data, int i)
 	}
 	else
 	{
+		// dup2(data->tab_pipe[i][1], STDOUT_FILENO);
 		if(dup2(data->tab_pipe[i][1], STDOUT_FILENO) == -1)
 		{
 			perror("Dup2 failed");
@@ -54,19 +58,15 @@ int dup_fd(t_data *data, int i)
 }
 
 // faire un while plutot qu'une fonction recursive
-int mypipe(t_data *data)
+int fork_and_pipe(t_data *data)
 {
 	int i;
 
 	i = 0;
 	while (data->cmds[i] != NULL)
 	{
-		// mettre les pip dans uin tableau de pid
-
-		// ft_printf("i = %d\n", i);
 		if (data->cmds[i + 1] != NULL)
 		{
-			// ft_printf("voila %d %p\n", i, data->tab_pipe[i]);
 			if (pipe(data->tab_pipe[i]) == -1)
 			{
 				perror("Pipe creation failed");
@@ -75,26 +75,20 @@ int mypipe(t_data *data)
 			data->current_pipe++;
 		}
 
-		// verrification aue les dup n'echouent pas
 		if (dup_fd(data, i))
 			return (EXIT_FAILURE); // free des trucs
-		
-		
 
 		data->tab_pid[i] = fork();
-
-		
 		if (data->tab_pid[i] == -1) {
-			// tout free
 			perror("Fork failed");
-			return 1;
+			free_data(data);
+			return (EXIT_FAILURE);
 		}
 
 		if (data->tab_pid[i] == 0) {
 			exec(data, data->cmds[i]);
-			// perror("Error1 :");
+			// free_data(data);
 			return (EXIT_FAILURE);
-			// tout free
 		}
 		i++;
 	}
@@ -102,13 +96,8 @@ int mypipe(t_data *data)
 	i = 0;
 	while (data->cmds[i] != NULL)
 	{
-		// ft_printf("wait pid = %d\n", data->cmds[i]);
 		waitpid(data->tab_pid[i], NULL, 0);
 		i++;
 	}
-	
-	
-	
-	// wait(NULL);
 	return (EXIT_SUCCESS);
 }

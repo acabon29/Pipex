@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:20:28 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/14 19:18:50 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/14 19:39:32 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	exec(t_data *data, char *cmd)
 			perror(tmp_path_cmd);
 		}
 		// mettre une erreur en cas de commade non trouve
+		free_tab((void **)params);
 		free(tmp_path_cmd);
 		i++;
 	}
