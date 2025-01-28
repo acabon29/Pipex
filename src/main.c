@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:17:08 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 14:24:27 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/28 15:54:29 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	data = init_data(argc, argv, envp);
 	if (!data)
-	{
-		ft_fprintf(2, "Malloc error\n");
 		return (EXIT_FAILURE);
-	}
 	if (open_files(data))
 	{
 		free_data(data);

@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:39:11 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 15:07:48 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/28 15:53:58 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,18 @@ void	del_content(void *content)
 char	*find_path(char *envp[])
 {
 	int	i;
+	char *res;
 
 	i = 0;
 	while (envp[i] != NULL
 		&& ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
 	if (envp[i] == NULL)
-		return (NULL);
-	return (ft_strdup(envp[i] + 5));
+		return (ft_fprintf(2, "Path not find\n"), NULL);
+	res = ft_strdup(envp[i] + 5);
+	if (!res)
+		return (ft_fprintf(2, "Malloc error\n"), NULL);
+	return (res);
 }
 
 void	free_data(t_data *data)
@@ -41,27 +45,4 @@ void	free_data(t_data *data)
 	free_tabn((void **)data->tab_pipe,
 		(int)(data->argc - (5 + data->here_doc)));
 	free(data);
-}
-
-void	free_tab(void **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
-void	free_tabn(void **tab, int i)
-{
-	while (i >= 0)
-	{
-		free(tab[i]);
-		i--;
-	}
-	free(tab);
 }

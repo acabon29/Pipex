@@ -58,6 +58,8 @@ FILES		= \
 	get_next_line \
 	ft_strcmp \
 	ft_putnbr_base_fd \
+	free_tab \
+	free_tabn \
 
 SRC_DIR = src
 OBJ_DIR = obj

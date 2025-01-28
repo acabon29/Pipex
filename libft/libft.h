@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:19:21 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 13:30:49 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/28 15:49:47 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ int		ft_fprintf(int fd, const char *format, ...);
 char	*get_next_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_putnbr_base_fd(unsigned int nb, char *base, int fd);
+void	free_tab(void **tab);
+void	free_tabn(void **tab, int i);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE	42

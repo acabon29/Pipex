@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:59:50 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 15:18:22 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/28 15:53:29 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ int	open_files(t_data *data)
 		data->cmds++;
 		data->valid_infile = 1;
 	}
+	if (data->here_doc == 1)
+		data->fd_outfile = open(data->outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
 	data->fd_outfile = open(data->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->fd_outfile == -1)
 	{

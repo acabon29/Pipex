@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:20:28 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 15:10:49 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/28 15:50:59 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,5 @@ int	exec(t_data *data, char *cmd)
 		i++;
 	}
 	ft_fprintf(2, "Erreur: commande not found\n");
-	return (EXIT_FAILURE);
+	return (close_fd(data), EXIT_FAILURE);
 }

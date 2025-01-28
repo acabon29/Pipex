@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:05:02 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/15 14:53:28 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/28 15:53:08 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static int	get_all_path(t_data *data, char *envp[])
 	data->paths = ft_split((const char *)path, ':');
 	free(path);
 	if (!(data->paths))
+	{
+		ft_fprintf(2, "Malloc error\n");
 		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -35,13 +38,20 @@ static char	**gen_tab_cmd(int argc, char *argv[], char here_doc)
 	decal = 2 + here_doc;
 	cmds = malloc((argc - decal) * sizeof(char *));
 	if (!cmds)
+	{
+		ft_fprintf(2, "Malloc error\n");
 		return (NULL);
+	}
 	i = decal;
 	while (i < (size_t)(argc - 1))
 	{
 		cmds[i - decal] = ft_strdup(argv[i]);
 		if (!cmds[i - decal])
-			return (free_tabn((void **)cmds, (int)(i - decal)), NULL);
+		{
+			ft_fprintf(2, "Malloc error\n");
+			free_tabn((void **)cmds, (int)(i - decal));
+			return (NULL);
+		}
 		i++;
 	}
 	cmds[i - decal] = NULL;
@@ -58,6 +68,7 @@ static int	init_tab_pipe(t_data *data, int argc)
 		free_tab((void **)data->paths);
 		free_tabn((void **)data->cmds,
 			(int)(data->argc - (3 + data->here_doc)));
+		ft_fprintf(2, "Malloc error\n");
 		return (free(data->tab_pid), EXIT_FAILURE);
 	}
 	i = 0;
@@ -70,6 +81,7 @@ static int	init_tab_pipe(t_data *data, int argc)
 			free_tabn((void **)data->cmds,
 				(int)(data->argc - (3 + data->here_doc)));
 			free(data->tab_pid);
+			ft_fprintf(2, "Malloc error\n");
 			return (free_tabn((void **)data->tab_pipe, i), EXIT_FAILURE);
 		}
 		i++;
@@ -112,7 +124,7 @@ t_data	*init_data(int argc, char *argv[], char *envp[])
 
 	data = malloc(sizeof(t_data));
 	if (data == NULL)
-		return (NULL);
+		return (ft_fprintf(2, "Malloc error\n"), NULL);
 	if (init_base_data(data, argc, argv, envp))
 		return (free(data), NULL);
 	data->tab_pid = malloc((argc - (3 + data->here_doc)) * sizeof(int));
@@ -122,6 +134,7 @@ t_data	*init_data(int argc, char *argv[], char *envp[])
 		free_tabn((void **)data->cmds,
 			(int)(data->argc - (3 + data->here_doc)));
 		free(data);
+		ft_fprintf(2, "Malloc error\n");
 		return (NULL);
 	}
 	if (init_tab_pipe(data, argc))
