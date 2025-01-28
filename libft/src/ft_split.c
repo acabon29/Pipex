@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:42:31 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/14 11:27:32 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/28 16:01:48 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,6 @@ static int	ft_cmp_letters(const char *str, char charset)
 	return (i);
 }
 
-static void	free_tab(char **tab_str, int cmp)
-{
-	while (cmp > -1)
-	{
-		free(tab_str[cmp]);
-		cmp--;
-	}
-	free(tab_str);
-}
-
 char	**ft_split(char const *s, char c)
 {
 	int		i;
@@ -79,7 +69,7 @@ char	**ft_split(char const *s, char c)
 		{
 			tab_str[i] = (char *)malloc(ft_cmp_letters(s, c) + 1);
 			if (tab_str[i] == NULL)
-				return (free_tab(tab_str, i - 1), NULL);
+				return (free_tabn((void **)tab_str, i - 1), NULL);
 			j = 0;
 			while (*s && *s != c)
 				tab_str[i][j++] = *s++;

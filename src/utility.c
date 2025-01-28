@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:39:11 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/28 15:53:58 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/28 15:57:10 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	del_content(void *content)
 
 char	*find_path(char *envp[])
 {
-	int	i;
-	char *res;
+	int		i;
+	char	*res;
 
 	i = 0;
 	while (envp[i] != NULL

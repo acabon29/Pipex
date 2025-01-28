@@ -6,7 +6,7 @@
 /*   By: acabon <acabon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:05:02 by acabon            #+#    #+#             */
-/*   Updated: 2025/01/28 15:53:08 by acabon           ###   ########.fr       */
+/*   Updated: 2025/01/28 16:04:40 by acabon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ static char	**gen_tab_cmd(int argc, char *argv[], char here_doc)
 	return (cmds);
 }
 
-static int	init_tab_pipe(t_data *data, int argc)
+static int	init_tab_pipe(t_data *data, int argc, int i)
 {
-	int	i;
-
 	data->tab_pipe = malloc((argc - (4 + data->here_doc)) * sizeof(pid_t *));
 	if (!data->tab_pipe)
 	{
@@ -121,6 +119,7 @@ static int	init_base_data(t_data *data, int argc, char *argv[], char *envp[])
 t_data	*init_data(int argc, char *argv[], char *envp[])
 {
 	t_data	*data;
+	int		i;
 
 	data = malloc(sizeof(t_data));
 	if (data == NULL)
@@ -137,7 +136,8 @@ t_data	*init_data(int argc, char *argv[], char *envp[])
 		ft_fprintf(2, "Malloc error\n");
 		return (NULL);
 	}
-	if (init_tab_pipe(data, argc))
+	i = 0;
+	if (init_tab_pipe(data, argc, i))
 		return (free(data), NULL);
 	return (data);
 }
